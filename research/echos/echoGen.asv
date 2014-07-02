@@ -9,8 +9,8 @@ function [ out_echos ] = echoGen( d1 , d2)
 Fs = 44100;
 snd_spd = 343; 
 
-[noEcho, A] = generateTone();
-noEcho = noEcho';
+[no, A] = generateTone();
+tone = tone';
 
 %The intensity of the source 
 I = A^2;

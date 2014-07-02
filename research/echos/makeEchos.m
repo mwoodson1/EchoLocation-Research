@@ -7,7 +7,7 @@ function [ S ] = makeEchos( d_map, w, r )
 %   w     - width of the head
 %   r     - degrees of vision from center
 
-Fs = 441000;                %Sampling rate
+Fs = 44100;                %Sampling rate
 horz_deg = 57;              %Degrees the kinect can see horizontally
 vert_deg = 43;              %Degrees the kinect can see vertically
 [len, width] = size(d_map);
