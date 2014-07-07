@@ -23,19 +23,14 @@ noEcho = [tone emptyTime];
 
 %The intensity of the source 
 I = A^2;
-<<<<<<< HEAD
 
+%Give the time difference to the signal
 delayed_echo1 = delay(noEcho,(floor((d1*2)/snd_spd)));
 delayed_echo2 = delay(noEcho,(floor((d2*2)/snd_spd)));
 
+%Give the spectrum change
 out_echosE1 =  spect_chng(delayed_echo1 ,sqrt(I/(4*pi*(d1^2))));
 out_echosE2 =  spect_chang(delayed_echo2 ,sqrt(I/(4*pi*(d2^2))));
-=======
-%the new A will be sqrt(I/(4*pi*d^2))
-%The echo will occur floor(d*2/c) secs later
-out_echosE1 = myEcho(noEcho, (floor((d1*2)/snd_spd))*Fs, sqrt(I/(4*pi*(d1^2))));
-out_echosE2 = myEcho(noEcho, (floor((d1*2)/snd_spd))*Fs, sqrt(I/(4*pi*(d2^2))));
->>>>>>> origin/master
 
 %Remember to document padcat and give license to use
 out_echos = padcat(out_echosE1,out_echosE2);
