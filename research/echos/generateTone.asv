@@ -39,7 +39,7 @@ function [ snd, A ] = generateTone( )
 % output = A*sin(2*pi*freq*t);
 [r_click, Fs] = audioread('ref_click.mp3');
 snd = r_click(:,1);
-A = max(snd);
+A = max(r_click);
 
 end
 
