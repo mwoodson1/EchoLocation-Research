@@ -19,14 +19,10 @@ d_map2 = circleFilter(d_map,r,(horz_deg/width));
 %respectively.
 [l, r] = getBinauralDepth(d_map2, w);
 
-%Find the minimum depth in the filtered region we have
 [m,I] = min(d_map2);
 [m2,I2] = min(m);
 
-%Get the left and right depths
 l_d = l(I(I2),I2);
 r_d = r(I(I2),I2);
 
-%Generate the echo for the minimum distance.
 echo = echoGen(l_d,r_d);
-S = echo;

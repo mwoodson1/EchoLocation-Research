@@ -9,13 +9,17 @@ function [ out_echos ] = echoGen( d1 , d2)
 Fs = 44100;
 snd_spd = 343; 
 
-[no, A] = generateTone();
-tone = tone';
+[noEcho, A] = generateTone();
+noEcho = noEcho';
 
 %The intensity of the source 
 I = A^2;
-out_echosE1 = myEcho(noEcho, (floor((d1*2)/snd_spd))*Fs, sqrt(I/(4*pi*(d1^2))));
-out_echosE2 = myEcho(noEcho, (floor((d1*2)/snd_spd))*Fs, sqrt(I/(4*pi*(d2^2))));
+
+delayed_echo1 = delay(noEcho,(floor((d1*2)/snd_spd)));
+delayed_echo2 = delay(noEcho,(floor((d2*2)/snd_spd)));
+
+out_echosE1 =  spect_chng(delayed_echo1 ,sqrt(I/(4*pi*(d1^2))));
+out_echosE2 =  spect_chang(delayed_echo2 ,sqrt(I/(4*pi*(d2^2))));
 
 %Remember to document padcat and give credit
 out_echos = padcat(out_echosE1,out_echosE2);
