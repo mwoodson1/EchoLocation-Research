@@ -12,17 +12,21 @@ deg_vert = 43;
 [len, width] = size(d_map);
 
 %Splitting the degrees in the horizontal plane
-vec1 = [-(deg_horz/2):deg_horz/width:(deg_horz/2)];
+vec1 = [-(deg_horz/2):ceil(deg_horz/width):(deg_horz/2)];
+
+%The left and right ear vectors. 
+l = zeros(size(vec1));
+r = zeros(size(vec1));
 
 for i=1:length(vec1)
     %If the pixel is to the left of the y axis
     if(vec1(i) < 0)
-        thetaR(i) = 90 - vec1(i);
-        thetaL(i) = 90 + vec1(i);
+        thetaR = 90 - vec1(i);
+        thetaL = 90 + vec1(i);
     else
     if(vec1(i) > 0)
-        thetaR(i) = 90 - vec1(i);
-        thetaL(i) = 90 + vec1(i);
+        thetaR = 90 - vec1(i);
+        thetaL = 90 + vec1(i);
     else
         thetaR(i) = vec1(i);
         thetaL(i) = vec1(i);
@@ -31,27 +35,16 @@ for i=1:length(vec1)
 end
         
 %This contains the degrees from the center of the camera for every pixel in
-%the image with respect to the origin x = 0 for right and left ears
-%respectively.
+%the image with respect to the origin x = 0
 R_deg = repmat(thetaR,len,1);
 L_deg = repmat(thetaL,len,1);
 
-R = zeros(size(d_map));
-L = zeros(size(d_map));
-
-%Loop through every depth and calculate left and right ear distances
-for i=1:len
-    for j=1:width
-        d = d_map(i,j);
-        thetaR = R_deg(i,j);
-        thetaL = L_deg(i,j);
+%%The bug is here
+        d = vec1(i);
         %Law of Cosines
-        R(i,j) = sqrt((w/2)^2 + d^2 + 2*d*(w/2)*cos(thetaR));
-        L(i,j) = sqrt((w/2)^2 + d^2 + 2*d*(w/2)*cos(thetaL));
-    end
-end
+        r(i) = sqrt((w/2)^2 + d^2 + 2*d*(w/2)*cos(thetaR));
+        l(i) = sqrt((w/2)^2 + d^2 + 2*d*(w/2)*cos(thetaL));
 
-%Checks
 assert(size(R,1) == len);
 assert(size(R,2) == width);
 assert(size(L,1) == len);
