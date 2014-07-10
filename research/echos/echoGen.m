@@ -28,10 +28,14 @@ delayed_echo2 = delay(noEcho,(floor((d2*2)/snd_spd)));
 
 delayed_echo1 = delay(noEcho,(floor((d1*2)/snd_spd)), Fs);
 delayed_echo2 = delay(noEcho,(floor((d2*2)/snd_spd)), Fs);
+plot(noEcho);
+figure(2);
+plot(delayed_echo1);
 
 %Give the spectrum change
 out_echosE1 =  spect_chng(delayed_echo1 ,sqrt(I/(4*pi*(d1^2))));
 out_echosE2 =  spect_chng(delayed_echo2 ,sqrt(I/(4*pi*(d2^2))));
+
 
 %Remember to document padcat and give license to use
 out_echos = padcat(out_echosE1,out_echosE2);

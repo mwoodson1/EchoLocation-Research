@@ -9,7 +9,11 @@ echo = x*a;
 zeroo = zeros(1,d);
 %Starts d secs after beggining
 first = [zeroo echo];
+
+%The original signal
 second = [x zeroo];
-out = first; %+ second;
+out = first + second;
+figure(2);
+plot(out);
 end
 
