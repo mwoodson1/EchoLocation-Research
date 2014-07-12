@@ -9,8 +9,6 @@ function [ S ] = makeEchos( d_map, w, r )
 
 %Data is given in millimeters but calculations depend on meters
 d_map = double(d_map) ./ 1000; 
-imshow(d_map,[0,4]);
-pause;
 
 Fs = 44100;                 %Sampling rate
 horz_deg = 57;              %Degrees the kinect can see horizontally
@@ -18,8 +16,6 @@ vert_deg = 43;              %Degrees the kinect can see vertically
 [len, width] = size(d_map);
 
 d_map2 = circleFilter(d_map,r,(horz_deg/width));
-imshow(d_map2,[0,4]);
-pause;
 
 %The d_map is with respect to 1 point which we consider to be the middle of
 %the head so we need to calculate the depth map for the left and right ears

@@ -17,17 +17,18 @@ tone = tone';
 %I give two seconds in between reference signals
 emptyTime = zeros(1,Fs*2);
 
-noEcho = [tone emptyTime];
+noEcho = tone;
 
 %The intensity of the source 
 I = A^2;
 
 %Give the time difference to the signal
-delayed_echo1 = delay(noEcho,(floor((d1*2)/snd_spd)));
-delayed_echo2 = delay(noEcho,(floor((d2*2)/snd_spd)));
+delayed_echo1 = delay(noEcho,((d1*2)/snd_spd), 44100);
+delayed_echo2 = delay(noEcho,((d2*2)/snd_spd), 44100);
 
-delayed_echo1 = delay(noEcho,(floor((d1*2)/snd_spd)), Fs);
-delayed_echo2 = delay(noEcho,(floor((d2*2)/snd_spd)), Fs);
+emptyT1 = zeros(1,floor(((d1*2)/snd_spd)*Fs));
+emptyT2 = zeros(1,floor(((d2*2)/snd_spd)*Fs));
+
 plot(noEcho);
 figure(2);
 plot(delayed_echo1);
@@ -35,6 +36,12 @@ plot(delayed_echo1);
 %Give the spectrum change
 out_echosE1 =  spect_chng(delayed_echo1 ,sqrt(I/(4*pi*(d1^2))));
 out_echosE2 =  spect_chng(delayed_echo2 ,sqrt(I/(4*pi*(d2^2))));
+
+%[noEcho emptyT1] +
+%[noEcho emptyT2] +
+
+out_echosE1 =  [noEcho emptyT1] + out_echosE1;
+out_echosE2 =  [noEcho emptyT2] + out_echosE2;
 
 
 %Remember to document padcat and give license to use
