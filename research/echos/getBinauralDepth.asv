@@ -1,4 +1,4 @@
-function [R, L] = getBinauralDepth(d_map, w)
+function [L, R] = getBinauralDepth(d_map, w)
 %getBinauralDepth Generates a depth map for left and right ears.
 %   We assume that the depth map given is with respect to the center of the
 %   head so we generate the depth maps l and r for the left and right ears
@@ -24,9 +24,8 @@ for i=1:length(vec1)
         thetaR(i) = 90 - vec1(i);
         thetaL(i) = 90 + vec1(i);
     else
-        %When the pixel is straight ahead we have a 90 deg angle
-        thetaR(i) = 90;
-        thetaL(i) = 90;
+        thetaR(i) = vec1(i);
+        thetaL(i) = vec1(i);
     end
     end
 end
@@ -44,16 +43,11 @@ L = zeros(size(d_map));
 for i=1:len
     for j=1:width
         d = d_map(i,j);
-        if(d ~= 0)
-            thetaR = R_deg(i,j);
-            thetaL = L_deg(i,j);
-            %Law of Cosines
-            R(i,j) = sqrt((w/2)^2 + d^2 + 2*d*(w/2)*cosd(thetaR));
-            L(i,j) = sqrt((w/2)^2 + d^2 + 2*d*(w/2)*cosd(thetaL));
-        else
-            R(i,j) = 0;
-            L(i,j) = 0;
-        end
+        thetaR = R_deg(i,j);
+        thetaL = L_deg(i,j);
+        %Law of Cosines
+        R(i,j) = sqrt((w/2)^2 + d^2 + 2*d*(w/2)*cos(thetaR));
+        L(i,j) = sqrt((w/2)^2 + d^2 + 2*d*(w/2)*cos(thetaL));
     end
 end
 

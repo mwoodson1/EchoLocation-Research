@@ -25,7 +25,6 @@ d_map2 = circleFilter(d_map,r,(horz_deg/width));
 %Set 0 elements to infinity so we don't use this when finding the minimum
 d_map(d_map == 0) = inf;
 
-%There may be a problem below with finding the minimum distance
 %Find the minimum depth in the filtered region we have
 [m,I] = min(d_map2);
 [m2,I2] = min(m);
