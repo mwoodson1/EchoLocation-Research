@@ -29,10 +29,9 @@ emptyT1 = zeros(1,floor(((d1*2)/snd_spd)*Fs));
 emptyT2 = zeros(1,floor(((d2*2)/snd_spd)*Fs));
 
 plot(noEcho);
-axis([0 44100*.25 -1 2]);
-figure(2);
-plot(delayed_echo1);
-axis([0 44100*.25 -1 2]);
+% figure(2);
+% plot(delayed_echo1);
+% axis([0 44100*.25 -1 2]);
 
 %Give the spectrum change
 out_echosE1 =  spect_chng(delayed_echo1 ,sqrt(I/(4*pi*(d1^2))));
@@ -41,9 +40,14 @@ out_echosE2 =  spect_chng(delayed_echo2 ,sqrt(I/(4*pi*(d2^2))));
 %[noEcho emptyT1] +
 %[noEcho emptyT2] +
 
-out_echosE1 =  out_echosE1;
-out_echosE2 =  out_echosE2;
+out_echosE1 =  delayed_echo1;%out_echosE1;
+out_echosE2 =  delayed_echo2;%out_echosE2;
 
+figure;
+plot(out_echosE1);
+figure;
+plot(out_echosE2);
+pause;
 
 %Remember to document padcat and give license to use
 out_echos = padcat(out_echosE1,out_echosE2);

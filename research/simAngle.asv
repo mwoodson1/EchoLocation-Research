@@ -1,0 +1,9 @@
+d = 3;
+w = .15;
+[r, l] = angleToBinaural(45,d,w);
+sameAngle = echoGen(r,l);
+
+sameDist1 = echoGen(1,1);
+sameDist10 = echoGen(200,200);
+sameDist25 = echoGen(25,25);
+s
