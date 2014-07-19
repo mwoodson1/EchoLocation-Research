@@ -9,8 +9,9 @@ function [ snd, A ] = generateTone( )
  
  A = max(snd);
 
-%snd = ones(1,44100*.001);
-%A = 1;
+% snd = [ones(1,44100*.001) zeros(1,44100*.015)];
+% snd = snd';
+% A = 1;
 
 end
 

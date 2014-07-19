@@ -29,9 +29,15 @@ emptyT1 = zeros(1,floor(((d1*2)/snd_spd)*Fs));
 emptyT2 = zeros(1,floor(((d2*2)/snd_spd)*Fs));
 
 plot(noEcho);
-% figure(2);
-% plot(delayed_echo1);
-% axis([0 44100*.25 -1 2]);
+maxV = length(noEcho);
+title('Reference Signal (No Echo)');
+axis([0 maxV -1 1]);
+set(gca,'XTick',[0:floor(.005*Fs):maxV]);
+cellArr = makeLabels(maxV,floor(.005*Fs));
+set(gca,'XTickLabel',cellArr);
+xlabel('Milliseconds');
+ylabel('Amplitude');
+pause;
 
 %Give the spectrum change
 out_echosE1 =  spect_chng(delayed_echo1 ,sqrt(I/(4*pi*(d1^2))));
@@ -40,13 +46,42 @@ out_echosE2 =  spect_chng(delayed_echo2 ,sqrt(I/(4*pi*(d2^2))));
 %[noEcho emptyT1] +
 %[noEcho emptyT2] +
 
-out_echosE1 =  delayed_echo1;%out_echosE1;
-out_echosE2 =  delayed_echo2;%out_echosE2;
+out_echosE1 =  [noEcho emptyT1] + out_echosE1;
+out_echosE2 =  [noEcho emptyT2] + out_echosE2;
 
 figure;
 plot(out_echosE1);
+maxV = length(noEcho);
+title('Left Ear Echos, 25m Target Including Reference');
+axis([0 maxV -1 1]);
+set(gca,'XTick',[0:floor(.005*Fs):maxV]);
+cellArr = makeLabels(maxV,floor(.005*Fs));
+set(gca,'XTickLabel',cellArr);
+xlabel('Milliseconds');
+ylabel('Amplitude');
+pause;
+
 figure;
 plot(out_echosE2);
+maxV = length(noEcho);
+title('Rgiht Ear Echos, 25m Target Including Reference');
+axis([0 maxV -1 1]);
+set(gca,'XTick',[0:floor(.005*Fs):maxV]);
+cellArr = makeLabels(maxV,floor(.005*Fs));
+set(gca,'XTickLabel',cellArr);
+xlabel('Milliseconds');
+ylabel('Amplitude');
+pause;
+
+plot(addFill(noEcho,-out_echosE2));
+maxV = length(noEcho);
+title('Rgiht Ear Echos, 1m Target Including Reference');
+axis([0 maxV -1 1]);
+set(gca,'XTick',[0:floor(.005*Fs):maxV]);
+cellArr = makeLabels(maxV,floor(.005*Fs));
+set(gca,'XTickLabel',cellArr);
+xlabel('Milliseconds');
+ylabel('Amplitude');
 pause;
 
 %Remember to document padcat and give license to use
