@@ -1,4 +1,4 @@
-function [ out_echos ] = echoGen( d1 , d2, g, r )
+function [ out_echos ] = echoGen( d1 , d2, g, ref )
 %echoGen Generates a reference tone and echos to two ears.
 %   d1 = distance to right ear in meters
 %   d2 = distance to left ear in meters
@@ -29,7 +29,7 @@ out_echosE2 =  spect_chng(delayed_echo2 ,sqrt(I/(4*pi*(d2^2))));
 emptyT1 = zeros(1,floor(((d1*2)/snd_spd)*Fs));
 emptyT2 = zeros(1,floor(((d2*2)/snd_spd)*Fs));
 
-if(r)
+if(ref)
     out_echosE1 =  [noEcho emptyT1] + out_echosE1 + out_echosE1*g;
     out_echosE2 =  [noEcho emptyT2] + out_echosE2 + out_echosE2*g;
 else

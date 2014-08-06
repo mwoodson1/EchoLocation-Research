@@ -1,4 +1,4 @@
-function [ S ] = makeEchos( d_map, w, r )
+function [ S ] = makeEchos( d_map, w, r, g, ref )
 %makeEchos Primary function for construct of binaural echos
 %   Given a depth map this function produces a sound matrix for left and
 %   right ear channels.
@@ -6,6 +6,8 @@ function [ S ] = makeEchos( d_map, w, r )
 %   d_map - depth map
 %   w     - width of the head
 %   r     - degrees of vision from center
+%   g     - percent gain on echo (float between 0 and 1)
+%   ref   - binary flag signaling to include the reference signal
 
 %Data is given in millimeters but calculations depend on meters
 d_map = double(d_map) ./ 1000;
@@ -41,5 +43,5 @@ r_d = r(I(I2),I2);
 
 %Generate the echo for the minimum distance.
 
-echo = echoGen(l_d,r_d);
+echo = echoGen(l_d,r_d,g,ref);
 S = echo;
