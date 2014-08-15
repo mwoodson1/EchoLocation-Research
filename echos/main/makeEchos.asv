@@ -30,7 +30,7 @@ colormap('gray');
 [l, r] = getBinauralDepth(d_map2, w);
 
 %Set 0 elements to infinity so we don't use this when finding the minimum
-d_map2(d_map2 == 0) = inf;
+d_map(d_map == 0) = inf;
 
 %There may be a problem below with finding the minimum distance as if we
 %have a flat wall we will consider the minimum to be the top left pixel
